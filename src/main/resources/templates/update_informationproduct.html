@@ -1,0 +1,254 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html/">
+    <title>Главная</title>
+</head>
+<body>
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+    <!-- Navbar brand -->
+    <a class="navbar-brand" th:href="main">Главная</a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="view_informationproduct">Информационные продукты
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Дополнительные сущности</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="view_country">Страны</a>
+                    <a class="dropdown-item" href="view_language">Языки</a>
+                    <a class="dropdown-item" href="view_organization">Организации</a>
+                    <a class="dropdown-item" href="view_geographicalobject">Географические объекты</a>
+                    <a class="dropdown-item" href="view_projectorprogram">Проекты или программы</a>
+                    <a class="dropdown-item" href="view_observationdiscipline">Дисциплины наблюдений</a>
+                    <a class="dropdown-item" href="view_observationparameter">Параметры наблюдений</a>
+                    <a class="dropdown-item" href="view_observationparametergroup">Группы дисциплин наблюдений</a>
+                    <a class="dropdown-item" href="view_observationscope">Области наблюдений</a>
+                    <a class="dropdown-item" href="view_observationtype">Типы наблюдений</a>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="user">Пользователи
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+
+        </ul>
+        <!-- Links -->
+        <div th:if="${loggedUser!=null}">
+            <form th:action="@{/logout}" method="post" class="form-inline">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit" value="Logout" class="btn btn-primary">Logout
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div th:if="${loggedUser==null}">
+            <form th:action="@{/login}" method="post" class="form-inline">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit" value="Login" class="btn btn-primary">Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div >
+    <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+<br>
+<div class="container">
+    <div align="center">
+        <h1>Изменить мета-описание информационного продукта</h1>
+        <br />
+        <form action="#" th:action="@{/information_product/update/{id}(id=${informationProduct.idInformationProduct})}" th:object="${informationProduct}" enctype="multipart/form-data" method="post">
+            <table>
+                <tr>
+                    <td>Выберите страну:</td>
+                    <td>
+                        <select th:field="*{country}" class="browser-default custom-select">
+                            <option th:each="country : ${listCountry}"
+                                    th:value="${country.idCountry}"
+                                    th:text="${country.nameCountry}"
+                                    value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите язык:</td>
+                    <td>
+                        <select th:field="*{language}" class="browser-default custom-select">
+                            <option th:each="language : ${listLanguage}"
+                                    th:value="${language.idLanguage}"
+                                    th:text="${language.nameLanguage}"
+                                    value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Дисциплинау наблюдений</td>
+                    <td>
+                        <select th:field="*{observationDiscipline}" class="browser-default custom-select">
+                            <option th:each="observationDiscipline : ${listObservationDiscipline}"
+                                    th:value="${observationDiscipline.idObservationDiscipline}"
+                                    th:text="${observationDiscipline.nameObservationDiscipline}"
+                                    value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите проект или программу</td>
+                    <td>
+                        <select th:field="*{projectOrProgram}" class="browser-default custom-select">
+                            <option th:each="projectOrProgram : ${listProjectOrProgram}"
+                                    th:value="${projectOrProgram.idProjectOrProgram}"
+                                    th:text="${projectOrProgram.fullnameProjectOrProgram}"
+                                    value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите вид наблюдений</td>
+                    <td>
+                        <select th:field="*{observationType}" class="browser-default custom-select">
+                            <option th:each="observationType : ${listObservationType}"
+                                    th:value="${observationType.idObservationType}"
+                                    th:text="${observationType.nameObservationType}"
+                                    value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите параметр наблюдений</td>
+                    <td>
+                        <select th:field="*{observationParameter}" class="browser-default custom-select">
+                            <option th:each="observationParameter : ${listObservationParameter}"
+                                    th:value="${observationParameter.idObservationParameter}"
+                                    th:text="${observationParameter.nameObservationParameter}"
+                                    value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите группу параметров наблюдений</td>
+                    <td>
+                        <select th:field="*{observationParameterGroup}" class="browser-default custom-select">
+                            <option th:each="observationParameterGroup : ${listObservationParameterGroup}"
+                                    th:value="${observationParameterGroup.idObservationParameterGroup}"
+                                    th:text="${observationParameterGroup.nameObservationParameterGroup}"
+                                    value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите сферу наблюдений</td>
+                    <td>
+                        <select th:field="*{observationScope}" class="browser-default custom-select">
+                            <option th:each="observationScope : ${listObservationScope}"
+                                    th:value="${observationScope.idObservationScope}"
+                                    th:text="${observationScope.nameObservationScope}"
+                                    value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите географический объект</td>
+                    <td>
+                        <select th:field="*{geographicalObject}" class="browser-default custom-select">
+                            <option th:each="geographicalObject : ${listGeographicalObject}"
+                                    th:value="${geographicalObject.idGeographicalObject}"
+                                    th:text="${geographicalObject.nameGeographicalObject}"
+                                    value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Выберите организацию</td>
+                    <td>
+                        <select th:field="*{organization}" class="browser-default custom-select">
+                            <option th:each="organization : ${listOrganization}"
+                                    th:value="${organization.idOrganization}"
+                                    th:text="${organization.fullnameOrganization}"
+                                    value=""></option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+                Введите инвентарный номер
+                    <input type="text" class="form-control" th:field="*{inventoryNumber}" />
+                    Введите полное название CD-ROM
+                    <input type="text" class="form-control" th:field="*{fullnameCdrom}" />
+
+                    Введите краткое название CD-ROM
+                    <input type="text" class="form-control" th:field="*{abbreviationCdrom}" />
+
+                    Введите дату начала наблюдений
+                    <input type="text"  class="form-control" th:field="*{dateObservationStart}" />
+
+                    Введите дату окончания наблюдений
+                    <input type="text" class="form-control" th:field="*{dateObservationEnd}" />
+
+                    Введите краткое описание
+                    <input type="text" class="form-control" th:field="*{briefContent}" />
+
+                    Введите объём файла данных
+                    <input type="text" class="form-control" th:field="*{volume}" />
+
+                    Введите дату получения
+                    <input type="text" class="form-control" th:field="*{receivedDate}" />
+
+                    Выберите файл для загрузки
+            <div class="custom-file">
+                    <input type="file" th:field="*{uploadFile}" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                <label class="custom-file-label" for="inputGroupFile04">Выберите файл</label>
+            </div><br><br>
+                   <button type="submit" class="btn btn-indigo btn-sm m-0">Сохранить изменения</button><br>
+
+
+        </form>
+    </div>
+
+</div>
+<code data-lang="js" data-name="JavaScript"></code>
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
+
+</body>
+</html>

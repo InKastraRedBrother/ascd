@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html/">
+    <title>Главная</title>
+</head>
+<body>
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+    <!-- Navbar brand -->
+    <a class="navbar-brand" th:href="main">Главная</a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="view_informationproduct">Информационные продукты
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Дополнительные сущности</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="view_country">Страны</a>
+                    <a class="dropdown-item" href="view_language">Языки</a>
+                    <a class="dropdown-item" href="view_organization">Организации</a>
+                    <a class="dropdown-item" href="view_geographicalobject">Географические объекты</a>
+                    <a class="dropdown-item" href="view_projectorprogram">Проекты или программы</a>
+                    <a class="dropdown-item" href="view_observationdiscipline">Дисциплины наблюдений</a>
+                    <a class="dropdown-item" href="view_observationparameter">Параметры наблюдений</a>
+                    <a class="dropdown-item" href="view_observationparametergroup">Группы дисциплин наблюдений</a>
+                    <a class="dropdown-item" href="view_observationscope">Области наблюдений</a>
+                    <a class="dropdown-item" href="view_observationtype">Типы наблюдений</a>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="user">Пользователи
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+
+        </ul>
+        <!-- Links -->
+        <div th:if="${loggedUser!=null}">
+            <form th:action="@{/logout}" method="post" class="form-inline">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit" value="Logout" class="btn btn-primary">Logout
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div th:if="${loggedUser==null}">
+            <form th:action="@{/login}" method="post" class="form-inline">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit" value="Login" class="btn btn-primary">Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div >
+    <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Страна</th>
+            <th>Язык</th>
+            <th>Дисциплина наблюдения</th>
+            <th>проект/программа</th>
+            <th>вид наблюдений</th>
+            <th>параметра наблюдения</th>
+            <th>группы параметров наблюдения</th>
+            <th>сферы наблюдения</th>
+            <th>географического объекта</th>
+            <th>организация</th>
+            <th>сотрудника внёсшего информацию</th>
+            <th>Инвентарный номер</th>
+            <th>Полное название CD-ROM</th>
+            <th>Краткое название CD-ROM</th>
+            <th>Дата начала наблюдения</th>
+            <th>Дата окончания наблюдения</th>
+            <th>Краткое описание содержания</th>
+            <th>Объём данных на диске</th>
+            <th>Дата получения диска</th>
+            <th>Дата и время внесения в бд</th>
+            <th>Загруженные файлы</th>
+            <th>Изменить</th>
+            <th>Удалить</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="informationProduct : ${listInformationProducts}">
+            <td th:text="${informationProduct.idInformationProduct}"></td>
+            <td th:text="${informationProduct.country.nameCountry}"></td>
+            <td th:text="${informationProduct.language.nameLanguage}"></td>
+            <td th:text="${informationProduct.observationDiscipline.nameObservationDiscipline}"></td>
+            <td th:text="${informationProduct.projectOrProgram.fullnameProjectOrProgram}"></td>
+            <td th:text="${informationProduct.observationType.nameObservationType}"></td>
+            <td th:text="${informationProduct.observationParameter.nameObservationParameter}"></td>
+            <td th:text="${informationProduct.observationParameterGroup.nameObservationParameterGroup}"></td>
+            <td th:text="${informationProduct.observationScope.nameObservationScope}"></td>
+            <td th:text="${informationProduct.geographicalObject.nameGeographicalObject}"></td>
+            <td th:text="${informationProduct.organization.fullnameOrganization}"></td>
+            <td th:text="${informationProduct.user.username}"></td>
+            <td th:text="${informationProduct.inventoryNumber}"></td>
+            <td th:text="${informationProduct.fullnameCdrom}"></td>
+            <td th:text="${informationProduct.abbreviationCdrom}"></td>
+            <td th:text="${informationProduct.dateObservationStart}"></td>
+            <td th:text="${informationProduct.dateObservationEnd}"></td>
+            <td th:text="${informationProduct.briefContent}"></td>
+            <td th:text="${informationProduct.volume}"></td>
+            <td th:text="${informationProduct.receivedDate}"></td>
+            <td th:text="${informationProduct.dateOfEntering}"></td>
+            <td> <form action="#" th:action="${informationProduct.uploadFile}"><button type="submit" class="btn btn-indigo btn-sm m-0">Скачать файл</button></form></td>
+            <td> <form action="#" th:action="@{information_product/edit/{id}(id=${informationProduct.idInformationProduct})}"><button type="submit" class="btn btn-indigo btn-sm m-0">Edit</button></form></td>
+            <td> <form action="#" th:action="@{information_product/delete/{id}(id=${informationProduct.idInformationProduct})}"><button type="submit" class="btn btn-indigo btn-sm m-0">Delete</button></form></td>
+        </tr>
+    </tbody>
+</table>
+
+<code data-lang="js" data-name="JavaScript"></code>
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
+
+</body>
+</html>

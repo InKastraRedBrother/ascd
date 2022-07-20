@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>main</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+    <form action="#" th:action="@{/user}" method="post">
+        <input type="text" th:value="${user.username}" name="userUsername">
+
+        <div th:each="user : ${user.roles}">
+            <input type="text" th:value="${user.username}" >
+        </div>
+
+        <input type="text" th:value="${user.id}" name="userId">
+        <button type="submit">Сохранить изменения</button>
+    </form>
+</body>
+</html>

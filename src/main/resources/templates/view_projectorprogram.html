@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html/">
+    <title>Главная</title>
+</head>
+<body>
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+    <!-- Navbar brand -->
+    <a class="navbar-brand" th:href="main">Главная</a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="view_informationproduct">Информационные продукты
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Дополнительные сущности</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="view_country">Страны</a>
+                    <a class="dropdown-item" href="view_language">Языки</a>
+                    <a class="dropdown-item" href="view_organization">Организации</a>
+                    <a class="dropdown-item" href="view_geographicalobject">Географические объекты</a>
+                    <a class="dropdown-item" href="view_projectorprogram">Проекты или программы</a>
+                    <a class="dropdown-item" href="view_observationdiscipline">Дисциплины наблюдений</a>
+                    <a class="dropdown-item" href="view_observationparameter">Параметры наблюдений</a>
+                    <a class="dropdown-item" href="view_observationparametergroup">Группы дисциплин наблюдений</a>
+                    <a class="dropdown-item" href="view_observationscope">Области наблюдений</a>
+                    <a class="dropdown-item" href="view_observationtype">Типы наблюдений</a>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="user">Пользователи
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+
+        </ul>
+        <!-- Links -->
+        <div th:if="${loggedUser!=null}">
+            <form th:action="@{/logout}" method="post" class="form-inline">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit" value="Logout" class="btn btn-primary">Logout
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div th:if="${loggedUser==null}">
+            <form th:action="@{/login}" method="post" class="form-inline">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit" value="Login" class="btn btn-primary">Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div >
+    <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+<br>
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Программа или проект</th>
+                <th>Полное название проекта/программы</th>
+                <th>Аббревиатура проекта/программы</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="projectOrProgram : ${listProjectOrProgram}">
+                <td th:text="${projectOrProgram.choiceProjectOrProgram}"></td>
+                <td th:text="${projectOrProgram.fullnameProjectOrProgram}"></td>
+                <td th:text="${projectOrProgram.abbreviationProjectOrProgram}"></td>
+            </tr>
+        </tbody>
+    </table>
+<br>
+<form action="#" th:action="@{/add_projectorprogram}"><button type="submit" class="btn btn-indigo btn-sm m-0">Добавить проект/программу</button></form>
+
+</div>
+<code data-lang="js" data-name="JavaScript"></code>
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
+
+</body>
+</html>
